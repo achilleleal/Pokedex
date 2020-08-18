@@ -7,28 +7,26 @@ import 'tachyons';
 
 class App extends Component {
 
-  // Creates pokemonNumber number value
   constructor() {
 		super()
 		this.state = {
-      data: {}
+      data: {} // Creates a data object to store the pokemon info
 		}
   }
-
-  // Changes the pokemonNumber value to a random value
+  
   getRandPokemonNumber = async () => {
+    // Fetches the data of a random pokemon within the range (807 is the total pokemon up to gen 7), then adds it to the state's data object
     const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${Math.round(Math.random() * 807).toString()}`);
     this.setState({data: await resp.json()}) 
   }
 
   render() {  
-    // const {pokemonNumber} = this.state; //Extracts pokemonNumber from the state
-    const {data} = this.state;
+    const {data} = this.state; // Extracts the data from the state
     return (
       <div className='App'>
-        {/*Here, we pass the function and the pokemonNumber value as props to each component*/}
+        {/* Passes the function and the data to each component as props*/}
         <Header getRandPokemonNumber={this.getRandPokemonNumber}/>
-        <PokeCard  data={data}/>
+        <PokeCard data={data}/>
       </div>
     );
   }
